@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    generate-unique-name: false
+    name: testdb
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 60000
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+server:
+  error:
+    include-message: always
+    include-stacktrace: never
+
