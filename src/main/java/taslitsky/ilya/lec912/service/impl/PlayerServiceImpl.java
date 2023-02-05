@@ -103,12 +103,8 @@ public class PlayerServiceImpl implements PlayerService {
         .build();
     if(playerDto.getTeamName() != null) {
       Optional<TeamEntity> teamEntity = teamRepo.findByName(playerDto.getTeamName());
-      teamEntity.ifPresent(player::setTeam);
-      if(teamEntity.isPresent()) {
-        player.setTeam(teamEntity.get());
-      } else {
-        throw new NotFoundException("Team with name %s not found".formatted(playerDto.getTeamName()));
-      }
+      teamEntity.ifPresentOrElse(player::setTeam,
+          () -> { throw new NotFoundException("Team with name %s not found".formatted(playerDto.getTeamName()));} );
     }
     return player;
   }
